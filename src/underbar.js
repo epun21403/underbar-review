@@ -103,6 +103,21 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    var result = [];
+    var numDetails = {};
+    _.each(array, function(num) {
+      if (iterator !== undefined) {
+        var newValue = iterator(num);
+        if (numDetails[newValue] === undefined) {
+          numDetails[newValue] = 1;
+          result.push(num);
+        }
+      } else if (_.indexOf(result, num) === -1) {
+        result.push(num);
+      }
+    });
+
+    return result;
   };
 
 
